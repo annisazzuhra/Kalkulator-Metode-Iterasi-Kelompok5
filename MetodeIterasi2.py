@@ -18,3 +18,12 @@ def format_persamaan(teks):
 
 def hitung_fx(x, rumus_python):
     return eval(rumus_python, {"__builtins__": None}, {"x": x, **FUNGSI_AMAN})
+
+
+def adalah_kuadrat(rumus_python):
+    for t in (0, 1, 2.5):
+        hasil = (hitung_fx(t + 3, rumus_python) - 3 * hitung_fx(t + 2, rumus_python)
+                 + 3 * hitung_fx(t + 1, rumus_python) - hitung_fx(t, rumus_python))
+        if abs(hasil) > 1e-6:
+            return False
+    return True
