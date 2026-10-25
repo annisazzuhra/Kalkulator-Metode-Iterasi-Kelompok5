@@ -54,3 +54,15 @@ def baca_persamaan(pesan):
             return teks
         except Exception:
             print("   ! Persamaan tidak bisa dibaca. Contoh yang benar: x^2 - 2x - 3")
+
+
+def kalkulator_cara2(input_fx, x0, toleransi=0.0001, max_iter=50):
+    """
+    Iterasi Cara 2: pindahkan suku x ke ruas kiri, lalu bagi dengan angka di depan x.
+    Contoh: x^2 - 2x - 3 = 0  ->  x = (x^2 - 3) / 2
+    """
+    rumus_fx = format_persamaan(input_fx)
+
+    if not adalah_kuadrat(rumus_fx):
+        print("\nPERINGATAN: Persamaan ini bukan kuadrat. Program tetap jalan,")
+        print("            tapi hasilnya mungkin tidak sesuai Cara 2.")
