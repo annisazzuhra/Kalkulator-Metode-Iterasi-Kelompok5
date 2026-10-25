@@ -66,3 +66,19 @@ def kalkulator_cara2(input_fx, x0, toleransi=0.0001, max_iter=50):
     if not adalah_kuadrat(rumus_fx):
         print("\nPERINGATAN: Persamaan ini bukan kuadrat. Program tetap jalan,")
         print("            tapi hasilnya mungkin tidak sesuai Cara 2.")
+
+
+    # b = angka di depan x (untuk x^2 - 2x - 3, b = -2)
+    h = 0.00001
+    b = round((hitung_fx(h, rumus_fx) - hitung_fx(-h, rumus_fx)) / (2 * h), 6)
+    if b == 0:
+        print("\nPersamaan tidak punya suku x (pangkat 1), jadi Cara 2 tidak bisa dipakai.")
+        return None, []
+
+    print(f"\nRumus iterasi: g(x) = x - F(x)/({b:g})")
+    print("=" * 70)
+    print(f"{'Iterasi':<10} | {'xr':<12} | {'g(xr)':<12} | {'F(xr)':<12} | {'Galat':<12}")
+    print("=" * 70)
+
+    xr = x0
+    riwayat_data = []
