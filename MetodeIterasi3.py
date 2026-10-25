@@ -92,5 +92,28 @@ def kalkulator_cara3(input_fx, x0, toleransi=0.0001, max_iter=50):
 
         xr = xr_baru
 
+    print("=" * 70)
+    print("Sudah mencapai batas maksimum iterasi (belum konvergen).")
 
+    if len(riwayat_data) >= 3 and riwayat_data[-2]["galat"] > 0:
+        rasio = riwayat_data[-1]["galat"] / riwayat_data[-2]["galat"]
+        if rasio >= 1:
+            print("Penjelasan: galat tidak mengecil, jadi iterasi ini tidak akan konvergen.")
+        elif rasio > 0.9:
+            print("Penjelasan: galat mengecil, tapi sangat pelan.")
+        else:
+            print("Penjelasan: galat sudah mengecil, coba naikkan batas maksimum iterasi.")
+        print("Saran      : ganti nilai awal, naikkan maks iterasi, atau perbesar toleransi.")
+
+    return xr, riwayat_data
+
+if __name__ == "__main__":
+    print("=== KALKULATOR METODE ITERASI CARA 3 ===")
+
+    persamaan = baca_persamaan("1. Masukkan persamaan F(x)        : ")
+    x0        = baca_angka("2. Masukkan nilai awal (x0)       : ")
+    toleransi = baca_angka("3. Masukkan toleransi error       : ", harus_positif=True)
+    max_iter  = baca_angka("4. Masukkan batas maks iterasi    : ", tipe=int, harus_positif=True)
+
+    kalkulator_cara3(persamaan, x0, toleransi, max_iter)
 
