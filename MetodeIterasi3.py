@@ -58,5 +58,39 @@ def kalkulator_cara3(input_fx, x0, toleransi=0.0001, max_iter=50):
     xr = x0
     riwayat_data = []
 
-    
+    for i in range(1, max_iter + 1):
+        if xr - 2 == 0:
+            print("=" * 70)
+            print(f"Berhenti di iterasi ke-{i}: Penyebut bernilai nol (x = 2, pembagian dengan nol).")
+            print("Saran: ganti nilai awal (x0) agar tidak sama dengan 2.")
+            return None, riwayat_data
+
+        try:
+            xr_baru = 3 / (xr - 2)
+            fx_baru = hitung_fx(xr_baru, rumus_fx)
+            if isinstance(xr_baru, complex) or abs(xr_baru) > 1e12:
+                raise OverflowError
+        except (ArithmeticError, ValueError, TypeError):
+            print("=" * 70)
+            print(f"Berhenti di iterasi ke-{i}: angka terlalu besar atau tidak terdefinisi (divergen).")
+            print("Saran: coba nilai awal (x0) yang lain.")
+            return None, riwayat_data
+
+        galat = abs(xr_baru - xr)
+        print(f"{i:<10} | {xr:<12.6f} | {xr_baru:<12.6f} | {fx_baru:<12.6f} | {galat:<12.6f}")
+
+        riwayat_data.append({
+            "iterasi": i, "xr": xr, "g_xr": xr_baru, "f_xr": fx_baru, "galat": galat
+        })
+
+        if galat < toleransi:
+            print("=" * 70)
+            print(f"Hasil Akhir (Akar x) : {xr_baru:.6f}")
+            print(f"Ditemukan pada       : Iterasi ke-{i}")
+            print("=" * 70)
+            return xr_baru, riwayat_data
+
+        xr = xr_baru
+
+
 
