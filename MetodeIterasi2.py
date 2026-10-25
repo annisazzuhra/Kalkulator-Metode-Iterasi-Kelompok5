@@ -42,3 +42,15 @@ def baca_angka(pesan, tipe=float, harus_positif=False):
             print("   ! Angka harus lebih besar dari 0, coba lagi.")
             continue
         return nilai
+
+
+def baca_persamaan(pesan):
+    while True:
+        teks = input(pesan)
+        rumus = format_persamaan(teks)
+        try:
+            hitung_fx(0, rumus)
+            hitung_fx(1, rumus)
+            return teks
+        except Exception:
+            print("   ! Persamaan tidak bisa dibaca. Contoh yang benar: x^2 - 2x - 3")
