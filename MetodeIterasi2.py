@@ -82,3 +82,19 @@ def kalkulator_cara2(input_fx, x0, toleransi=0.0001, max_iter=50):
 
     xr = x0
     riwayat_data = []
+
+
+    for i in range(1, max_iter + 1):
+        try:
+            xr_baru = xr - hitung_fx(xr, rumus_fx) / b
+            fx_baru = hitung_fx(xr_baru, rumus_fx)
+            if isinstance(xr_baru, complex) or abs(xr_baru) > 1e12:
+                raise OverflowError
+        except (ArithmeticError, ValueError, TypeError):
+            print("=" * 70)
+            print(f"Berhenti di iterasi ke-{i}: angka terlalu besar atau tidak bisa dihitung (divergen).")
+            print("Saran: coba nilai awal (x0) yang lebih dekat ke akar.")
+            return None, riwayat_data
+
+        galat = abs(xr_baru - xr)
+        print(f"{i:<10} | {xr:<12.6f} | {xr_baru:<12.6f} | {fx_baru:<12.6f} | {galat:<12.6f}")
