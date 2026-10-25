@@ -98,3 +98,18 @@ def kalkulator_cara2(input_fx, x0, toleransi=0.0001, max_iter=50):
 
         galat = abs(xr_baru - xr)
         print(f"{i:<10} | {xr:<12.6f} | {xr_baru:<12.6f} | {fx_baru:<12.6f} | {galat:<12.6f}")
+
+
+        riwayat_data.append({
+            "iterasi": i, "xr": xr, "g_xr": xr_baru, "f_xr": fx_baru, "galat": galat
+        })
+
+        if galat < toleransi:
+            print("=" * 70)
+            print(f"Hasil Akhir (Akar x) : {xr_baru:.6f}")
+            print(f"Ditemukan pada       : Iterasi ke-{i}")
+            print("=" * 70)
+            return xr_baru, riwayat_data
+
+        xr = xr_baru
+
