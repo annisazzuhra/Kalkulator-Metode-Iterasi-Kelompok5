@@ -43,5 +43,20 @@ def baca_persamaan(pesan):
         except Exception:
             print("   ! Persamaan tidak bisa dibaca. Contoh yang benar: x^2 - 2x - 3")
 
+def kalkulator_cara3(input_fx, x0, toleransi=0.0001, max_iter=50):
+    """
+    Iterasi Cara 3: Memfaktorkan persamaan menjadi x(x-2) = 3, 
+    sehingga fungsi iterasi g(x) = 3 / (x - 2)
+    """
+    rumus_fx = format_persamaan(input_fx)
 
+    print(f"\nRumus iterasi Cara 3: g(x) = 3 / (x - 2)")
+    print("=" * 70)
+    print(f"{'Iterasi':<10} | {'xr':<12} | {'g(xr)':<12} | {'F(xr)':<12} | {'Galat':<12}")
+    print("=" * 70)
+
+    xr = x0
+    riwayat_data = []
+
+    
 
