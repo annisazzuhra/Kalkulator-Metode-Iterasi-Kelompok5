@@ -27,3 +27,18 @@ def adalah_kuadrat(rumus_python):
         if abs(hasil) > 1e-6:
             return False
     return True
+
+
+def baca_angka(pesan, tipe=float, harus_positif=False):
+    while True:
+        teks = input(pesan).strip().replace(",", ".")
+        try:
+            nilai = tipe(teks)
+        except ValueError:
+            jenis = "bilangan bulat" if tipe is int else "angka"
+            print(f"   ! Isi harus berupa {jenis}, coba lagi.")
+            continue
+        if harus_positif and nilai <= 0:
+            print("   ! Angka harus lebih besar dari 0, coba lagi.")
+            continue
+        return nilai
