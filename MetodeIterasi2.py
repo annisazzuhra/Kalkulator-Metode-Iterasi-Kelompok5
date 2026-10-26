@@ -138,3 +138,5 @@ if __name__ == "__main__":
     max_iter  = baca_angka("4. Masukkan batas maks iterasi    : ", tipe=int, harus_positif=True)
 
     kalkulator_cara2(persamaan, x0, toleransi, max_iter)
+
+

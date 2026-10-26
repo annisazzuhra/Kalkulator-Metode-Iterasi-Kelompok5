@@ -568,3 +568,5 @@ class Aplikasi(tk.Tk):
 
 if __name__ == "__main__":
     Aplikasi().mainloop()
+
+
