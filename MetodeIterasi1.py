@@ -4,6 +4,7 @@ import re
 def format_persamaan(teks):
     #Disini mengubah ketikan biasa (misal: x^2 - 2x - 3) menjadi ke format Python (x**2 - 2*x - 3)
     teks = teks.replace(" ", "").replace("^", "**")
+    #Sehingga otomatis menambahkan tanda '*' di antara angka dan huruf x, contoh: 2x jadi 2*x
     teks = re.sub(r'(\d)([xX])', r'\1*\2', teks)
     return teks.lower()
 
@@ -22,7 +23,7 @@ def kalkulator_cara1(input_fx, x0, toleransi=0.0001, max_iter=50):
     c = hitung_fx(0, rumus_fx)
     a = ((hitung_fx(1, rumus_fx) + hitung_fx(-1, rumus_fx)) / 2) - c
     if a == 0:
-        a = 1
+        a = 1  #Sebagai default jika bukan kuadrat standar
 
     print("\n" + "=" * 70)
     print(f"{'Iterasi':<10} | {'xr':<12} | {'g(xr)':<12} | {'F(xr)':<12} | {'Galat':<12}")
@@ -35,21 +36,25 @@ def kalkulator_cara1(input_fx, x0, toleransi=0.0001, max_iter=50):
         #Rumus Cara Iterasi 1: x^2 = (a*x^2 - F(x)) / a  menjadi  g(x) = sqrt((a*x^2 - F(x)) / a)
         dalam_akar = (a * (xr ** 2) - hitung_fx(xr, rumus_fx)) / a
 
+        #Ngecek biar nilai di dalam akar tidak negatif
         if dalam_akar < 0:
             print("=" * 70)
             print(f"Berhenti pada iterasi ke-{i}: Nilai di dalam akar negatif ({dalam_akar:.6f}).")
             return None, riwayat_data
 
+        #Menghitung nilai x baru dengan mengakarkannya
         xr_baru = math.sqrt(dalam_akar)
         fx_baru = hitung_fx(xr_baru, rumus_fx)
         galat = abs(xr_baru - xr)
 
         print(f"{i:<10} | {xr:<12.6f} | {xr_baru:<12.6f} | {fx_baru:<12.6f} | {galat:<12.6f}")
 
+        #Untuk simpan ke list atau memori (jika nanti dibutuhkan oleh teman yang membuat UI/UX)
         riwayat_data.append({
             "iterasi": i, "xr": xr, "g_xr": xr_baru, "f_xr": fx_baru, "galat": galat
         })
 
+        #Kondisi berhenti jika galat sudah lebih kecil dari toleransi
         if galat < toleransi:
             print("=" * 70)
             print(f"Hasil Akhir (Akar x) : {xr_baru:.6f}")
@@ -63,6 +68,8 @@ def kalkulator_cara1(input_fx, x0, toleransi=0.0001, max_iter=50):
     print("Iterasi mencapai batas maksimum (belum konvergen).")
     return xr, riwayat_data
 
+
+#Bagian untuk pengguna menginput nilai
 if __name__ == "__main__":
     print("=== KALKULATOR METODE ITERASI CARA 1 ===")
     
